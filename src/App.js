@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { API_URI } from './apis/api';
 import axios from 'axios';
 import Coin from './components/Coin';
+import './css/index.css';
 
 function App() {
   const [searchValue, setSearchValue] = useState('');
@@ -28,12 +29,24 @@ function App() {
 
   return(
     <div className="wrapper">
-      <h1 className="main-title">Crypto Currency Market Tracker</h1>
+      <header>
+        <h1 className="main-title">Cryptocurrency Market Tracker</h1>
+        <h3 className="main-subtitle"><a href="https://www.coingecko.com/en/api" className="main-subtitle__link">coingecko.com/api</a></h3>
+      </header>
       <form className="search__form">
         <input type="text" placeholder="Search currency..." className="search__input" onChange={handleSearch}/>
       </form>
       <div className="coins-panel">
-        {filteredCoins.map(coin => {
+        <div className="tb-header">
+          <div className="tb-header__title">Image</div>
+          <div className="tb-header__title">Name</div>
+          <div className="tb-header__title">Symbol</div>
+          <div className="tb-header__title">Market Cap</div>
+          <div className="tb-header__title">Total Volume</div>
+          <div className="tb-header__title">Change % / 24h</div>
+          <div className="tb-header__title">Current Price</div>
+        </div>
+        {!filteredCoins.length ? <p className="error-info">There is no such cryptocurrency</p> : filteredCoins.map(coin => {
           return (
             <Coin 
               key = {coin.id}

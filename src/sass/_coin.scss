@@ -1,0 +1,51 @@
+.coin {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  align-items: center;
+  height: 40px;
+  flex-basis: 100%;
+  font-family: $first-font-family;
+  color: $first-font-color;
+  font-size: 13px;
+  &:nth-of-type(even) {
+    background-color: $first-background-color;
+  }
+  @media(max-width: 640px) {
+    height: auto;
+    flex-direction: column;
+    &:nth-of-type(even) {
+      background-color: #fff;
+    }
+    &:nth-of-type(odd) {
+      background-color: $first-background-color;
+    }
+  }
+  .claster {
+    flex-basis: 10%;
+    &:nth-of-type(1) {
+      text-align: right;
+    }
+    @media(max-width: 640px) {
+      padding: 10px;
+    }
+  }
+  .claster.growth {
+    color: rgb(3, 128, 90);
+  }
+  .claster.drop {
+    color: rgb(236, 48, 48);
+  }
+  &__image {
+    height: 100%;
+    @media(max-width: 640px) {
+      height: 40px;
+    }
+    .icon {
+      height: 80%;
+      @media(max-width: 640px) {
+        height: 40px;
+      }
+    }
+  }
+}
