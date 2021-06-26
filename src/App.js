@@ -1,54 +1,55 @@
 import React, { useState, useEffect } from 'react';
+import { API_URI } from './apis/api';
 import axios from 'axios';
-import { API_URI } from './api/api';
 import Coin from './components/Coin';
 
 function App() {
-
   const [searchValue, setSearchValue] = useState('');
   const [coins, setCoins] = useState([]);
 
+  const handleSearch = (e) => {
+    e.preventDefault();
+    setSearchValue(e.target.value);
+  }
+  
   const getData = async() => {
     await axios.get(API_URI)
     .then(response => setCoins(response.data))
-    .catch(error => console.log(error))
+    .catch(new Error("Error occured."))
   }
 
-  useEffect(() => getData(), []);
+  useEffect(() => {
+    getData();
+  }, []);
 
-  const handleSearchInput = (e) => {
-    setSearchValue({
-      searchValue: e.target.value
-    })
-  }
+  let filteredCoins = coins.filter(coin => {
+    return coin.name.toLowerCase().includes(searchValue.toLowerCase());
+  })
 
-  const filteredCoins = coins.filter(coin => coin.name.toLowerCase().includes(searchValue.toLowerCase()));
-
-  return (
+  return(
     <div className="wrapper">
-      <h1>Crypto Currency Market Tracker</h1>
-      <div className="search">
-        <h3 className="search-title">Search currency</h3>
-        <form className="search-form">
-          <input type="text" placeholder="Search coin..." className="search-input" onChange={handleSearchInput}/>
-        </form>
-      </div>
-      <div className="coin-content">
+      <h1 className="main-title">Crypto Currency Market Tracker</h1>
+      <form className="search__form">
+        <input type="text" placeholder="Search currency..." className="search__input" onChange={handleSearch}/>
+      </form>
+      <div className="coins-panel">
         {filteredCoins.map(coin => {
-          return <Coin
-            key = {coin.key} 
-            name = {coin.name}
-            symbol = {coin.symbol}
-            image = {coin.image}
-            current_price = {coin.current_price}
-            total_volume = {coin.total_volume}
-            market_cap = {coin.market_cap}
-            price_change_percentage_24h = {coin.price_change_percentage_24h}
-          />
-        })}
+          return (
+            <Coin 
+              key = {coin.id}
+              image = {coin.image}
+              name = {coin.name}
+              symbol = {coin.symbol}
+              market_cap = {coin.market_cap}
+              current_price = {coin.current_price}
+              total_volume = {coin.total_volume}
+              price_change_percentage_24h = {coin.price_change_percentage_24h} 
+            />
+          )
+      })}
       </div>
     </div>
-  );
+  )
 }
 
 export default App;
