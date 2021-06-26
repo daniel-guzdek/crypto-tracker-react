@@ -37,6 +37,9 @@
     color: rgb(236, 48, 48);
   }
   &__image {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
     height: 100%;
     @media(max-width: 640px) {
       height: 40px;
