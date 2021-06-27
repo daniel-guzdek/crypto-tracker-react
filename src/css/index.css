@@ -238,6 +238,14 @@
   }
 }
 
+.coin .claster .unit {
+  margin-left: 4px;
+}
+
+.coin .claster .persentage_char {
+  margin-left: 2px;
+}
+
 .coin .claster.growth {
   color: #03805a;
 }
